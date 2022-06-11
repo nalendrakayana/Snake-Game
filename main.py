@@ -29,19 +29,22 @@ while game_is_on:
     time.sleep(0.1)
     snake.move()
     
+    #Detect Collision With Turtle(Food)
     if snake.snake_head.distance(food) < 15:
         food.coordinate()
+        scoreboard.get_point()
         scoreboard.update_score()
         snake.extend()
     
+    #Detect Collision With Wall
     if snake.snake_head.xcor() > 280 or snake.snake_head.xcor() < -280 or snake.snake_head.ycor() > 280 or snake.snake_head.ycor() < -280:
-        game_is_on = False
-        scoreboard.player_lose()
+        scoreboard.reset()
+        snake.snake_reset()
     
+    #Detect Collision With Other Body
     for body in snake.snakes[1:]:
         if snake.snake_head.distance(body) < 10:
-            game_is_on = False
-            scoreboard.player_lose()
+            scoreboard.reset()
 
 
 

@@ -28,12 +28,20 @@ class Snake:
     def extend(self):
         self.add_body(self.snakes[-1].position())
     
+    def snake_reset(self):
+        for snake in self.snakes:
+            snake.goto(x=1000, y=1000)
+        self.snakes.clear()
+        self.create_snake()
+        self.snake_head = self.snakes[0]
+    
     def move(self):
         for snake in range (len(self.snakes) - 1, 0, -1):
             new_xcor = self.snakes[snake - 1].xcor()
             new_ycor = self.snakes[snake - 1].ycor()
             self.snakes[snake].goto(new_xcor, new_ycor)
         self.snake_head.forward(DISTANCE)
+    
     
     def up(self):
         if self.snake_head.heading() != DOWN:
